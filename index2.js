@@ -92,7 +92,7 @@ const convertVideo = (inputPath, outputPath) => {
     res.writeHead(200, head);
     fs.createReadStream(videoPath).pipe(res);
   }
-      res.send(`Video uploaded and converted successfully: ${convertedVideo}`);
+      // res.send(`Video uploaded and converted successfully: ${convertedVideo}`);
     } catch (err) {
       res.status(500).send(`Error converting video: ${err.message}`);
     }
