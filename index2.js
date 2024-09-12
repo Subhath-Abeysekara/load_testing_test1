@@ -55,10 +55,43 @@ const convertVideo = (inputPath, outputPath) => {
     console.log('api_working')
     console.log(req.body)
     const inputVideoPath = path.join(__dirname,'uploads', "1726121432412-output_audio.wav"); // Input uploaded file path
-    const outputVideoPath = path.join(__dirname, 'uploads', `${Date.now()}-converted.mp4`); // Output converted video path
+    const convert_name = `${Date.now()}-converted.mp4`
+    const outputVideoPath = path.join(__dirname, 'uploads', convert_name); // Output converted video path
   
     try {
       const convertedVideo = await convertVideo(inputVideoPath, outputVideoPath);
+      const videoPath = path.join(__dirname,'uploads', convert_name);
+  const videoStat = fs.statSync(videoPath);
+  const fileSize = videoStat.size;
+  const range = req.headers.range;
+
+  if (range) {
+    // Handle range requests for video streaming
+    const parts = range.replace(/bytes=/, "").split("-");
+    const start = parseInt(parts[0], 10);
+    const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+
+    const chunkSize = (end - start) + 1;
+    const file = fs.createReadStream(videoPath, { start, end });
+    const head = {
+      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+      'Accept-Ranges': 'bytes',
+      'Content-Length': chunkSize,
+      'Content-Type': 'video/mp4',
+    };
+
+    res.writeHead(206, head); // Partial Content
+    file.pipe(res);
+  } else {
+    // If no range header, send the entire video
+    const head = {
+      'Content-Length': fileSize,
+      'Content-Type': 'video/mp4',
+    };
+
+    res.writeHead(200, head);
+    fs.createReadStream(videoPath).pipe(res);
+  }
       res.send(`Video uploaded and converted successfully: ${convertedVideo}`);
     } catch (err) {
       res.status(500).send(`Error converting video: ${err.message}`);
