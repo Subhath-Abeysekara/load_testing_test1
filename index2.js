@@ -58,11 +58,11 @@ const convertVideo = (inputPath, outputPath) => {
     console.log(req.body)
     const inputVideoPath = path.join(__dirname,'uploads', req.body.url); // Input uploaded file path
     const convert_name = `${Date.now()}-converted.${req.body.type}`
-    const outputVideoPath = path.join(__dirname, 'uploads', convert_name); // Output converted video path
+    const outputVideoPath = path.join(__dirname, 'converted', convert_name); // Output converted video path
   
     try {
       const convertedVideo = await convertVideo(inputVideoPath, outputVideoPath);
-      const videoPath = path.join(__dirname,'uploads', convert_name);
+      const videoPath = path.join(__dirname,'converted', convert_name);
   const videoStat = fs.statSync(videoPath);
   const fileSize = videoStat.size;
   const range = req.headers.range;
