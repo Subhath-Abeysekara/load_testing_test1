@@ -56,7 +56,7 @@ const convertVideo = (inputPath, outputPath) => {
   app.post('/convert', async (req, res) => {
     console.log('api_working')
     console.log(req.body)
-    const inputVideoPath = path.join(__dirname,'uploads', "1726121432412-output_audio.wav"); // Input uploaded file path
+    const inputVideoPath = path.join(__dirname,'uploads', req.body.url); // Input uploaded file path
     const convert_name = `${Date.now()}-converted.mp4`
     const outputVideoPath = path.join(__dirname, 'uploads', convert_name); // Output converted video path
   
