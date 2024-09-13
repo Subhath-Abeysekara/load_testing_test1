@@ -79,7 +79,7 @@ const convertVideo = (inputPath, outputPath) => {
       'Content-Range': `bytes ${start}-${end}/${fileSize}`,
       'Accept-Ranges': 'bytes',
       'Content-Length': chunkSize,
-      'Content-Type': 'video/mp4',
+      'Content-Type': `video/${req.body.type}`,
     };
 
     res.writeHead(206, head); // Partial Content
