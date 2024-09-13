@@ -6,8 +6,7 @@ import fs from 'fs';
 import ffmpeg from 'fluent-ffmpeg';
 
 // Helper to get __dirname in ES module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = "/home/ec2-user/load_testing_ausi";
 
 // Set up Express app
 const app = express();
@@ -53,7 +52,7 @@ const convertVideo = (inputPath, outputPath) => {
 
   app.post('/convert', async (req, res) => {
     console.log('api_working')
-    console.log(req.body)
+    console.log(req.body.url)
     const inputVideoPath = path.join(__dirname,'uploads', "1726121432412-output_audio.wav"); // Input uploaded file path
     const convert_name = `${Date.now()}-converted.mp4`
     const outputVideoPath = path.join(__dirname, 'uploads', convert_name); // Output converted video path
