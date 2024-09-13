@@ -57,7 +57,7 @@ const convertVideo = (inputPath, outputPath) => {
     console.log('api_working')
     console.log(req.body)
     const inputVideoPath = path.join(__dirname,'uploads', req.body.url); // Input uploaded file path
-    const convert_name = `${Date.now()}-converted.mp4`
+    const convert_name = `${Date.now()}-converted.${req.body.type}`
     const outputVideoPath = path.join(__dirname, 'uploads', convert_name); // Output converted video path
   
     try {
