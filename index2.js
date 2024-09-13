@@ -1,4 +1,6 @@
 import express from 'express';
+import cors from 'cors'
+import bodyParser from "body-parser";
 import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -10,7 +12,8 @@ const __dirname = "/home/ec2-user/load_testing_ausi";
 
 // Set up Express app
 const app = express();
-
+app.use(cors())
+app.use(bodyParser.json())
 // Configure Multer to store uploaded files in a specific folder ('uploads/')
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
