@@ -8,7 +8,7 @@ import fs from 'fs';
 import ffmpeg from 'fluent-ffmpeg';
 
 // Helper to get __dirname in ES module
-const __dirname = "/home/ec2-user/load_testing_test1";
+const __dirname = "/home/ec2-user/load_testing_ausi";
 
 // Set up Express app
 const app = express();
