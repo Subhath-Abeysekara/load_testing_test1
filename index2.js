@@ -88,7 +88,7 @@ const convertVideo = (inputPath, outputPath) => {
     // If no range header, send the entire video
     const head = {
       'Content-Length': fileSize,
-      'Content-Type': 'video/mp4',
+      'Content-Type': `video/${req.body.type}`,
     };
 
     res.writeHead(200, head);
